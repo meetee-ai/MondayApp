@@ -260,7 +260,7 @@ const App = () => {
             console.log(account)
   
             if(res.data.confirm){
-              // finishMeetingThe()
+              finishMeetingThe()
               
             }else{
               monday.execute("notice", { 
