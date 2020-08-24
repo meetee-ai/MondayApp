@@ -29,6 +29,7 @@ const App = () => {
   const [title,setTitle] = useState('')
   const [users,setUsers] = useState([])
   const [user,setUser] = useState({})
+  const [account,setAccount] = useState('')
   const [body,setBody] = useState('')
   const [arr,setArr] = useState([])
   const [arrToRender,setRender]= useState([])
@@ -224,7 +225,7 @@ const App = () => {
       email
     } }`).then((res) => {
       if(res){
-
+        setAccount(res.data.me)
         setUser(res.data.me)
       }
     });
@@ -256,9 +257,10 @@ const App = () => {
             excludeCancelButton: false
         }).then((res) => {
             console.log(res.data);
+            console.log(account)
   
             if(res.data.confirm){
-              finishMeetingThe()
+              // finishMeetingThe()
               
             }else{
               monday.execute("notice", { 
