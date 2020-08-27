@@ -2,12 +2,14 @@ import React,{Fragment,useState} from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import DropDown from '../utils/DropDown'
-import {MdPersonAdd,MdDateRange} from 'react-icons/md'
+import {MdPersonAdd,MdDateRange, MdDelete} from 'react-icons/md'
 import {DayPickerSingleDateController as SingleDatePicker} from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css';
 import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
 import aphroditeInterface from 'react-with-styles-interface-aphrodite';
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
+import ReactTooltip from 'react-tooltip'
+
 
 const Container = styled.div`
     border:1px solid #E0E0E0;
@@ -67,6 +69,27 @@ const Container = styled.div`
     .main{
         width:100%;
     }
+`
+
+const DeleteCon = styled.div`
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    flex-direction: column;
+    margin-top: 0px;
+    /* background: #eee; */
+    padding: 10px 10px 13px 13px;
+    ${'' /* margin-left: 50px; */}
+    color: #828282;
+    box-shadow: );
+    /* border: 1px solid #ddd; */
+    width: 25px;
+    height: 25px;
+    cursor:pointer;
 `
 
 const Attend = styled.div`
@@ -214,14 +237,27 @@ const DateChoose = ({date,setDate,index}) => {
     )
 }
 
-const ActionItem = ({state,setContent,setDate,index,users,setAssignee}) => {
-    console.log(state)
+const DeleteButton = ({action}) => {
     return (
-        <Container>
+        <DeleteCon onClick={()=>action()}>
+            <MdDelete />
+        </DeleteCon>
+    )
+}
+
+const ActionItem = ({state,setContent,setDate,index,users,setAssignee,deleteAction}) => {
+    const [showDelete,setShowDelete] = useState(false)
+    return (
+        <Container onMouseEnter={()=>{setShowDelete(true)}} onMouseLeave={()=>{setShowDelete(false)}}>
             <span/>
-            <input type="text" value={state.content} onChange={(e)=>setContent(e.target.value,index)}/>
+            <input type="text" data-for={`action${index}`} data-tip="" value={state.content} onChange={(e)=>setContent(e.target.value,index)}/>
+            <ReactTooltip id={`action${index}`}>{state.content}</ReactTooltip>
             <AssigneeChoose users={users} index={index} setAssignee={setAssignee} user={state.user} />           
             <DateChoose setDate={setDate} index={index} date={state.dueDate} />
+            {
+                showDelete &&
+                <DeleteButton action={()=>deleteAction(index)}/>
+            }
         </Container>
     )
 }

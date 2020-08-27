@@ -256,8 +256,8 @@ const App = () => {
             cancelButton: "Cancel", 
             excludeCancelButton: false
         }).then((res) => {
-            console.log(res.data);
-            console.log(account)
+            // console.log(res.data);
+            // console.log(account)
   
             if(res.data.confirm){
               finishMeetingThe()

@@ -8,13 +8,13 @@ const Container = styled.div`
     width:40%;
     padding:0 3rem 0 0;
 `
-const Right = ({arr,setContent,users,setAssignee,setDate}) => {
+const Right = ({arr,setContent,users,setAssignee,setDate,deleteAction}) => {
     return (
         <Container>
             <div style={{width:"100%"}}>
                 {
                     arr.map((x,i)=>{
-                        return <ActionItem setDate={setDate} setAssignee={setAssignee} users={users} setContent={setContent} index={i} state={x}/>
+                        return <ActionItem deleteAction={deleteAction} setDate={setDate} setAssignee={setAssignee} users={users} setContent={setContent} index={i} state={x}/>
                     })
                 }
             </div>

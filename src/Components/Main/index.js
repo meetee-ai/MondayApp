@@ -9,7 +9,15 @@ const Container = styled.div`
     margin-top:1rem;
 `
 const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRender}) => {
-
+    const deleteAction = (index)=>{
+        let d = [...arrToRender]
+        // console.log(arr)
+        let s = [...arr]
+        s.splice(index,1)
+        d.splice(index,1)
+        setArr(s)
+        // setRender(d)
+    }
     const setContent = (val,index) => {
         let d = [...arrToRender]
         d[index].content = val
@@ -36,7 +44,7 @@ const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRe
             }
             if(action.assignee != ''){
                 users.map((user)=>{
-                    console.log(action)
+                    // console.log(action)
                     if(user.name!='' && action.assignee!='' ){
                         if(user.name.toUpperCase().includes(action.assignee.toUpperCase())){
                             action.user = user
@@ -52,7 +60,7 @@ const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRe
     return (
         <Container>
             <Left body={body} setBody={setBody}  user={user} setMeetingID={setMeetingID}  arr={arr} setArr={setArr}/>
-            <Right setDate={setDate} setAssignee={setAssignee} arr={arrToRender} users={users} setContent={setContent}/>
+            <Right deleteAction={deleteAction} setDate={setDate} setAssignee={setAssignee} arr={arrToRender} users={users} setContent={setContent}/>
         </Container>
     )
 }
