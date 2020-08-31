@@ -8,7 +8,7 @@ const Container = styled.div`
     justify-content:space-between;
     margin-top:1rem;
 `
-const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRender}) => {
+const Main = ({resources,user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRender}) => {
     const deleteAction = (index)=>{
         let d = [...arrToRender]
         // console.log(arr)
@@ -35,6 +35,7 @@ const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRe
     }
     useEffect(()=>{
         let newRender = []
+        console.log(arr)
         arr.map((action)=>{
             action.user = {
                 email:'',
@@ -50,6 +51,23 @@ const Main = ({user,body,setBody,setMeetingID,users,arr,setArr,arrToRender,setRe
                             action.user = user
                         }
                     }
+                })
+            }else{
+                let words = action.content.split(" ")
+                resources.map((name)=>{
+                    words.map((word)=>{
+                        if(word == name.heb){
+                            users.map((user)=>{
+                                // console.log(action)
+                                if(user.name!=''  ){
+                                    if(user.name.toUpperCase().includes(name.eng.toUpperCase())){
+                                        action.user = user
+                                        // action.content = action.content.replace(name.heb,"")
+                                    }
+                                }
+                            })
+                        }
+                    })
                 })
             }
             newRender.push(action)

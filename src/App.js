@@ -30,6 +30,7 @@ const App = () => {
   const [users,setUsers] = useState([])
   const [user,setUser] = useState({})
   const [account,setAccount] = useState('')
+  const [resources,setResources] = useState([])
   const [body,setBody] = useState('')
   const [arr,setArr] = useState([])
   const [arrToRender,setRender]= useState([])
@@ -142,6 +143,11 @@ const App = () => {
   
   useEffect(()=>{
     // console.log("started")
+
+    axios.get('https://api.meetee.ai/api/v1/resources/names').then(res=>{
+      setResources(res.data)
+      // console.log(res.data)
+    })
     monday.listen("settings", (res) => {
      console.log(res)
     });
@@ -276,7 +282,7 @@ const App = () => {
   return (
     <Container>
         <Header title={title} setTitle={setTitle} FinishMeeting={FinishMeeting}/>
-        <Main body={body} setBody={setBody} user={user} setMeetingID={setMeetingID} arr={arr} setArr={setArr} arrToRender={arrToRender} setRender={setRender} users={users}/>
+        <Main resources={resources} body={body} setBody={setBody} user={user} setMeetingID={setMeetingID} arr={arr} setArr={setArr} arrToRender={arrToRender} setRender={setRender} users={users}/>
     </Container>
   )
 }
